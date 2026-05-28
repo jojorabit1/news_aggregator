@@ -1,13 +1,16 @@
 # main.py
-# Einstiegspunkt des Programms - hier wird alles zusammengeführt
+from collectors import fetch_feed, scrape_article, SOURCES
 
-from collectors import fetch_feed, SOURCES
-
+# ersten Artikel von ARD holen
 articles = fetch_feed(SOURCES[0])
-print(articles[0].keys())
 
 
-for article in articles[:3]:
-    print(article["title"])
-    print(article["link"])
-    print("---")
+first_link = articles[0]["link"]
+print("Link:", first_link)
+print("---")
+
+# Artikeltext scrapen
+text = scrape_article(first_link)
+
+# Ersten 500 Zeichen ausgeben
+print(text[:500])
