@@ -1,16 +1,18 @@
 # main.py
 from collectors import fetch_feed, scrape_article, SOURCES
+from processor import deduplicate
 
-# ersten Artikel von ARD holen
-articles = fetch_feed(SOURCES[0])
+# Artikel von ALLEN Quellen holen
+all_articles = []
 
+for source in SOURCES:
+    articles = fetch_feed(source)
+    print(f"{source['name']}: {len(articles)} Artikel")  # ← neu
+    all_articles.extend(articles)
 
-first_link = articles[0]["link"]
-print("Link:", first_link)
-print("---")
+print(f"Vor Deduplication: {len(all_articles)} Artikel")
 
-# Artikeltext scrapen
-text = scrape_article(first_link)
+#Duplikate entfernen
+unique = deduplicate(all_articles)
 
-# Ersten 500 Zeichen ausgeben
-print(text[:500])
+print(f"Nach Deduplication: {len(unique)} Artikel")
