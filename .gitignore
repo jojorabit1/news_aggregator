@@ -1,0 +1,13 @@
+# PyCharm interne Dateien
+.idea/
+
+# Virtuelle Umgebung
+.venv/
+venv/
+
+# API-Keys → niemals auf GitHub!
+.env
+
+# Python Cache
+__pycache__/
+*.pyc
