@@ -20,7 +20,7 @@ unique = deduplicate(all_articles)
 filtered = filter_articles(unique)
 
 # Ranking
-top_articles = rank_articles(filtered, top_n=5)
+top_articles = rank_articles(filtered, top_n=10)
 
 # Zusammenfassung
 summary = summarize_news(top_articles)

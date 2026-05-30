@@ -14,6 +14,26 @@ SOURCES = [
         "url": "https://www.zdf.de/rss/zdf/nachrichten",
         "outlet": "ZDF",
     },
+    {
+        "name": "Spiegel",
+        "url": "https://www.spiegel.de/schlagzeilen/index.rss",
+        "outlet": "Spiegel",
+    },
+    {
+        "name": "Zeit Online",
+        "url": "https://newsfeed.zeit.de/all",
+        "outlet": "Zeit",
+    },
+    {
+        "name": "Süddeutsche Zeitung",
+        "url": "https://rss.sueddeutsche.de/alles",
+        "outlet": "SZ",
+    },
+    {
+        "name": "n-tv",
+        "url": "https://www.n-tv.de/rss",
+        "outlet": "n-tv",
+    },
 ]
 
 def fetch_feed(source: dict) -> list:
