@@ -11,3 +11,5 @@ venv/
 # Python Cache
 __pycache__/
 *.pyc
+# Generierte Reports
+tagesbericht_*.html
