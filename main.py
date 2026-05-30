@@ -1,10 +1,9 @@
 # main.py
-# Einstiegspunkt des Programms - hier wird alles zusammengeführt
-
 from collectors import fetch_feed, SOURCES
 from processor import deduplicate, filter_articles, rank_articles
 from summarizer import summarize_news
 from formatter import print_report
+from reporter import save_html_report
 
 # Artikel von allen Quellen holen
 all_articles = []
@@ -25,5 +24,9 @@ top_articles = rank_articles(filtered, top_n=10)
 # Zusammenfassung
 summary = summarize_news(top_articles)
 
-# Report ausgeben
+# Terminal Report
 print_report(top_articles, summary)
+
+# HTML Report speichern
+dateiname = save_html_report(top_articles, summary)
+print(f"\n✅ HTML Report gespeichert: {dateiname}")
