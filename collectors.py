@@ -4,36 +4,25 @@ from bs4 import BeautifulSoup
 
 
 SOURCES = [
-    {
-        "name": "ARD Tagesschau",
-        "url": "https://www.tagesschau.de/xml/rss2/",
-        "outlet": "ARD",
-    },
-    {
-        "name": "ZDF heute",
-        "url": "https://www.zdf.de/rss/zdf/nachrichten",
-        "outlet": "ZDF",
-    },
-    {
-        "name": "Spiegel",
-        "url": "https://www.spiegel.de/schlagzeilen/index.rss",
-        "outlet": "Spiegel",
-    },
-    {
-        "name": "Zeit Online",
-        "url": "https://newsfeed.zeit.de/all",
-        "outlet": "Zeit",
-    },
-    {
-        "name": "Süddeutsche Zeitung",
-        "url": "https://rss.sueddeutsche.de/alles",
-        "outlet": "SZ",
-    },
-    {
-        "name": "n-tv",
-        "url": "https://www.n-tv.de/rss",
-        "outlet": "n-tv",
-    },
+    # Politik & Allgemein
+    {"name": "ARD Tagesschau", "url": "https://www.tagesschau.de/xml/rss2/", "outlet": "ARD", "category": "Politik"},
+    {"name": "ARD Inland", "url": "https://www.tagesschau.de/xml/rss2_inland/", "outlet": "ARD", "category": "Politik"},
+    {"name": "ARD Ausland", "url": "https://www.tagesschau.de/xml/rss2_ausland/", "outlet": "ARD", "category": "Politik"},
+    {"name": "ZDF heute", "url": "https://www.zdf.de/rss/zdf/nachrichten", "outlet": "ZDF", "category": "Politik"},
+    {"name": "Spiegel", "url": "https://www.spiegel.de/schlagzeilen/index.rss", "outlet": "Spiegel", "category": "Politik"},
+    {"name": "Zeit Online", "url": "https://newsfeed.zeit.de/all", "outlet": "Zeit", "category": "Politik"},
+
+    # Wirtschaft
+    {"name": "ARD Wirtschaft", "url": "https://www.tagesschau.de/xml/rss2_wirtschaft/", "outlet": "ARD", "category": "Wirtschaft"},
+    {"name": "Spiegel Wirtschaft", "url": "https://www.spiegel.de/wirtschaft/index.rss", "outlet": "Spiegel", "category": "Wirtschaft"},
+
+    # Sport
+    {"name": "Spiegel Sport", "url": "https://www.spiegel.de/sport/index.rss", "outlet": "Spiegel", "category": "Sport"},
+    {"name": "SZ Sport", "url": "https://rss.sueddeutsche.de/rss/Sport", "outlet": "SZ", "category": "Sport"},
+
+    # International
+    {"name": "BBC News", "url": "https://feeds.bbci.co.uk/news/rss.xml", "outlet": "BBC", "category": "International"},
+    {"name": "Reuters", "url": "https://feeds.reuters.com/reuters/topNews", "outlet": "Reuters", "category": "International"},
 ]
 
 def fetch_feed(source: dict) -> list:
@@ -51,6 +40,7 @@ def fetch_feed(source: dict) -> list:
             "summary": entry.get("summary", ""),
             "link":    entry.get("link", ""),
             "outlet":  source["outlet"],
+            "category": source["category"],  # ← neu
         }
         articles.append(article)
 

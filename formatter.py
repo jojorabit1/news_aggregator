@@ -6,15 +6,22 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.rule import Rule
 
-# Console Objekt erstellen
 console = Console()
+
+# Emoji pro Kategorie
+CATEGORY_ICONS = {
+    "Politik":       "🏛️",
+    "Wirtschaft":    "💰",
+    "Sport":         "🏆",
+    "International": "🌍",
+    "Sonstiges":     "📰",
+}
 
 
 def print_report(top_articles: list, summary: str) -> None:
     """
     Gibt den Tagesbericht formatiert im Terminal aus.
     """
-    # Datum
     heute = datetime.now().strftime("%d.%m.%Y")
 
     # Titel
@@ -23,14 +30,23 @@ def print_report(top_articles: list, summary: str) -> None:
         style="blue"
     ))
 
-    # Top Artikel
-    console.print(Rule("[bold]TOP NACHRICHTEN[/bold]"))
+    # Artikel nach Kategorie gruppieren
+    categories = {}
+    for article in top_articles:
+        cat = article.get("category", "Sonstiges")
+        if cat not in categories:
+            categories[cat] = []
+        categories[cat].append(article)
 
-    for i, article in enumerate(top_articles):
-        console.print(f"\n[bold]{i+1}. {article['title']}[/bold]")
-        console.print(f"   Quelle: [blue]{article['outlet']}[/blue]")
-        console.print(f"   Score:  {article['score']:.2f}")
+    # Pro Kategorie ausgeben
+    for category, articles in categories.items():
+        icon = CATEGORY_ICONS.get(category, "📰")
+        console.print(Rule(f"[bold]{icon} {category}[/bold]"))
+
+        for i, article in enumerate(articles):
+            console.print(f"\n[bold]{i+1}. {article['title']}[/bold]")
+            console.print(f"   Quelle: [blue]{article['outlet']}[/blue]")
 
     # Zusammenfassung
-    console.print(Rule("[bold]KI-ZUSAMMENFASSUNG[/bold]"))
+    console.print(Rule("[bold]🤖 KI-ZUSAMMENFASSUNG[/bold]"))
     console.print(f"\n{summary}\n")

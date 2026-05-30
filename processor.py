@@ -110,3 +110,20 @@ def rank_articles(articles: list, top_n: int = 10) -> list:
     ranked = sorted(articles, key=lambda x: x["score"], reverse=True)
 
     return ranked[:top_n]
+
+def group_by_category(articles: list) -> dict:
+    """
+    Gruppiert Artikel nach ihrer Kategorie.
+    Gibt ein Dictionary zurück: Kategorie → Liste von Artikeln
+    """
+    groups = {}
+
+    for article in articles:
+        category = article.get("category", "Sonstiges")
+
+        if category not in groups:
+            groups[category] = []
+
+        groups[category].append(article)
+
+    return groups

@@ -1,6 +1,6 @@
 # main.py
 from collectors import fetch_feed, SOURCES
-from processor import deduplicate, filter_articles, rank_articles
+from processor import deduplicate, filter_articles, rank_articles, group_by_category
 from summarizer import summarize_news
 from formatter import print_report
 from reporter import save_html_report
@@ -18,8 +18,14 @@ unique = deduplicate(all_articles)
 # Filtern
 filtered = filter_articles(unique)
 
-# Ranking
-top_articles = rank_articles(filtered, top_n=10)
+# Nach Kategorien gruppieren
+categories = group_by_category(filtered)
+
+# Pro Kategorie: Top 3 Artikel
+top_articles = []
+for category, articles in categories.items():
+    ranked = rank_articles(articles, top_n=3)
+    top_articles.extend(ranked)
 
 # Zusammenfassung
 summary = summarize_news(top_articles)

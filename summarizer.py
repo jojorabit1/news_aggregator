@@ -25,14 +25,22 @@ def summarize_news(articles: list) -> str:
         artikel_text += f"   Zusammenfassung: {article['summary']}\n\n"
 
     # Prompt
-    prompt = f"""Du bist ein professioneller Nachrichtenredakteur.
-Fasse die folgenden Top-Nachrichten des Tages in einem kompakten,
-sachlichen Tagesbericht auf Deutsch zusammen.
+    prompt = f"""Du bist ein professioneller Nachrichtenredakteur beim öffentlich-rechtlichen Rundfunk.
+    Analysiere die folgenden Nachrichten des Tages und erstelle einen ausführlichen Tagesbericht auf Deutsch.
 
-Nachrichten:
-{artikel_text}
+    Struktur des Berichts:
+    1. Einleitung – kurzer Überblick über die wichtigsten Themen des Tages
+    2. Politik – ausführliche Analyse der politischen Nachrichten
+    3. Wirtschaft – ausführliche Analyse der Wirtschaftsnachrichten  
+    4. Sport – kurze Zusammenfassung der Sportnachrichten
+    5. International – kurze Zusammenfassung der internationalen Nachrichten
+    6. Fazit – kurze Einordnung des Tages
 
-Schreibe einen fließenden Tagesbericht in 150-200 Wörtern."""
+    Nachrichten:
+    {artikel_text}
+
+    Schreibe einen ausführlichen, sachlichen Tagesbericht in 400-500 Wörtern.
+    Nutze Absätze und klare Struktur."""
 
     # API Anfrage
     response = client.chat.completions.create(
